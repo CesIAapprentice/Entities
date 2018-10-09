@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.HashMap;
 
 public class Order {
 	
@@ -20,15 +21,17 @@ public class Order {
 		this.orderline = new Orderline();
 	}
 	
-	
 // ----------------------------------------------------------------
 // METHODS
 	
-	public boolean dispatch() {
-		return false;
+	public void updatePrice() {
+		HashMap<Product, Integer> orderDetail = this.orderline.getOrderDetail(); 
+		for(Product product : orderDetail.keySet()) {
+			this.price += orderDetail.get(product) * product.getPrice();
+		}
 	}
 	
-	public boolean close() {
+	public boolean dispatch() {
 		return false;
 	}
 	
@@ -66,4 +69,14 @@ public class Order {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+
+
+	public Orderline getOrderline() {
+		return orderline;
+	}
+
+
+	public void setOrderline(Orderline orderline) {
+		this.orderline = orderline;
+	}	
 }

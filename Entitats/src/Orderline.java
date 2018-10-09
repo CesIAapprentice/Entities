@@ -11,6 +11,14 @@ public class Orderline {
 		this.orderDetail = new HashMap<Product, Integer>();
 	}
 	
-	
+// ----------------------------------------------------------------
+// CONSTRUCTOR		
 
+	public HashMap<Product, Integer> getOrderDetail() {
+		return orderDetail;
+	}
+
+	public void setOrderDetail(HashMap<Product, Integer> orderDetail) {
+		this.orderDetail = orderDetail;
+	}
 }

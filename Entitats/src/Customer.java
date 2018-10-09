@@ -5,7 +5,8 @@ import java.util.HashMap;
 public class Customer {
 	
 	private HashMap<Order, Orderline> orders;
-
+	private Order tempOrder;
+	
 	private String name ;
 	private String deliveryAddress;
 	private String phone;
@@ -17,16 +18,33 @@ public class Customer {
 		this.name = name;
 		this.deliveryAddress = deliveryAddress;
 		this.phone = phone;
+		
 		this.orders = new HashMap<Order, Orderline>();
+		this.tempOrder = createNewOrder();
 	}
 	
 // ----------------------------------------------------------------
 // METHODS
 	
-	public boolean buyProduct(Product product) {
-		return false;
+	public boolean buyProduct(Product product, Integer quantity) {
+		Orderline tempOrderline = tempOrder.getOrderline();
+		HashMap<Product, Integer> tempOrderdetail = tempOrderline.getOrderDetail();
+		tempOrderdetail.put(product, quantity);
+		return true;
 	}
 	
+	public Order createNewOrder() {
+		String orderNumber = String.valueOf(this.orders.size());
+		Date now = Calendar.getInstance().getTime();
+		return new Order(now , false, orderNumber, 0.0f);
+	}
+	
+	public boolean closeOrder() {
+		this.orders.put(tempOrder, tempOrder.getOrderline());
+		tempOrder.updatePrice();
+		this.tempOrder = createNewOrder();
+		return true;
+	}
 	
 // ----------------------------------------------------------------
 // GETTERS & SETTERS
